@@ -1,0 +1,1552 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Съёмочная смена: 20 рилсов за два дня, порядок съёмки, сценарии и чек-листы.">
+<title>Съёмочная смена Жасулана</title>
+<script src="config.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&family=Unbounded:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F7F6F3; --surface:#FFFFFF; --sunk:#F0EEEA;
+  --ink:#15161A; --ink2:#494C53; --muted:#8A8D94;
+  --line:#E3E0DA; --line2:#EDEBE6;
+  --ok:#1B7F4D; --ok-bg:#E4F1E9;
+  --bad:#C0392B; --bad-bg:#F7E4E1;
+  --warn:#9A6B12; --warn-bg:#F6EBD5;
+  --sh:0 1px 2px rgba(21,22,26,.04), 0 8px 24px rgba(21,22,26,.05);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1013; --surface:#16181C; --sunk:#1E2126;
+    --ink:#ECEDEF; --ink2:#B5B9C0; --muted:#7C818A;
+    --line:#262A30; --line2:#1D2024;
+    --ok:#52B481; --ok-bg:#15291F;
+    --bad:#E0776A; --bad-bg:#2D1A17;
+    --warn:#D2A44A; --warn-bg:#2A2113;
+    --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1013; --surface:#16181C; --sunk:#1E2126;
+  --ink:#ECEDEF; --ink2:#B5B9C0; --muted:#7C818A;
+  --line:#262A30; --line2:#1D2024;
+  --ok:#52B481; --ok-bg:#15291F;
+  --bad:#E0776A; --bad-bg:#2D1A17;
+  --warn:#D2A44A; --warn-bg:#2A2113;
+  --sh:0 1px 2px rgba(0,0,0,.5), 0 8px 24px rgba(0,0,0,.3);
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+img{max-width:100%}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Golos Text", "Segoe UI", system-ui, sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+  letter-spacing:-.004em;
+}
+.wrap{max-width:900px; margin:0 auto; padding-inline:20px; padding-block:0 96px}
+.mono{font-family:"IBM Plex Mono", ui-monospace, monospace; font-variant-numeric:tabular-nums}
+.eyebrow{
+  font-family:Unbounded, sans-serif; font-size:10px; font-weight:500;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--muted);
+}
+
+/* ================= header ================= */
+.top{position:sticky; top:env(safe-area-inset-top, 0px); z-index:30; background:var(--paper); border-bottom:1px solid var(--line)}
+.top-in{max-width:900px; margin:0 auto; padding-inline:20px; padding-block:18px 0}
+.brand{display:flex; align-items:baseline; gap:11px; flex-wrap:wrap}
+.brand h1{
+  font-family:Unbounded, sans-serif; font-weight:600; font-size:17px;
+  letter-spacing:-.02em; margin:0;
+}
+.brand .sub{color:var(--muted); font-size:13px}
+
+.meter{display:flex; align-items:center; gap:14px; margin-top:15px; flex-wrap:wrap}
+.segbar{display:flex; gap:3px; flex:1 1 240px; min-width:160px}
+.segbar i{flex:1 1 0; height:5px; border-radius:2px; background:var(--line); transition:background .3s}
+.segbar i.on{background:var(--ok)}
+.segbar i.re{background:var(--bad)}
+.segbar i.mv{background:var(--warn)}
+.segbar i.gap{margin-right:7px}
+.meter b{font-family:"IBM Plex Mono", monospace; font-weight:500; font-size:13px; font-variant-numeric:tabular-nums}
+.meter .m2{color:var(--muted); font-size:13px}
+.saved{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ok); opacity:0; transition:opacity .25s}
+.saved.on{opacity:1}
+
+.tabs{display:flex; gap:24px; margin-top:16px; overflow-x:auto; scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tabs button{
+  appearance:none; border:none; background:none; cursor:pointer; white-space:nowrap;
+  font-family:"Golos Text", sans-serif; font-size:14px; font-weight:500; color:var(--muted);
+  padding:0 0 13px; border-bottom:2px solid transparent; margin-bottom:-1px;
+}
+.tabs button:hover{color:var(--ink2)}
+.tabs button[aria-selected="true"]{color:var(--ink); border-bottom-color:var(--ink)}
+.tabs button:focus-visible{outline:2px solid var(--ink); outline-offset:3px; border-radius:2px}
+
+.notice{
+  margin-top:18px; padding:11px 14px; border-radius:10px;
+  background:var(--warn-bg); color:var(--warn); font-size:13.5px;
+}
+.lead{max-width:62ch; color:var(--ink2); font-size:14.5px; margin:10px 0 0}
+.lead b{color:var(--ink); font-weight:600}
+
+/* ================= filters ================= */
+.filters{display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:22px 0 0}
+.filters button{
+  appearance:none; background:transparent; border:1px solid var(--line); color:var(--ink2);
+  font-family:"Golos Text",sans-serif; font-size:13px; padding:6px 13px; border-radius:99px; cursor:pointer;
+  transition:background .15s, color .15s, border-color .15s;
+}
+.filters button:hover{border-color:var(--muted); color:var(--ink)}
+.filters button[aria-pressed="true"]{background:var(--ink); border-color:var(--ink); color:var(--paper); font-weight:500}
+.filters button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.filters .spacer{flex:1}
+.filters .act{border-style:dashed; color:var(--ink)}
+
+/* ================= section head ================= */
+.block-head{
+  display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;
+  margin:36px 0 2px; padding-bottom:9px; border-bottom:1px solid var(--line);
+}
+.block-head .loc{
+  font-family:Unbounded, sans-serif; font-size:11px; font-weight:500;
+  letter-spacing:.13em; text-transform:uppercase; color:var(--ink);
+}
+.block-head .meta{color:var(--muted); font-size:11.5px; font-family:"IBM Plex Mono", monospace}
+
+.break{
+  display:flex; gap:12px; align-items:baseline; padding:11px 0 11px 14px; margin:2px 0;
+  color:var(--muted); font-size:13.5px;
+}
+.break time{font-family:"IBM Plex Mono", monospace; font-size:12px; flex:none}
+
+/* ================= shot rows ================= */
+.item{border-bottom:1px solid var(--line2); background:transparent; transition:background .18s}
+.item[open]{background:var(--surface); border-radius:14px; box-shadow:var(--sh); border-bottom-color:transparent; margin:8px 0}
+.item[open] > summary{background:transparent}
+.item[open] + .item{border-top:1px solid var(--line2)}
+.item:last-of-type{border-bottom:none}
+.item > summary{
+  list-style:none; cursor:pointer; display:flex; align-items:center; gap:13px;
+  padding:14px 12px; border-radius:10px; transition:background .15s;
+}
+.item > summary::-webkit-details-marker{display:none}
+.item > summary:hover{background:var(--surface)}
+.item > summary:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+.dot{
+  width:9px; height:9px; border-radius:50%; flex:none;
+  background:transparent; border:1.5px solid var(--line); transition:all .2s;
+}
+.item[data-st="shot"] .dot{background:var(--ok); border-color:var(--ok)}
+.item[data-st="retake"] .dot{background:var(--bad); border-color:var(--bad)}
+.item[data-st="moved"] .dot{background:var(--warn); border-color:var(--warn)}
+.tm{font-family:"IBM Plex Mono", monospace; font-size:12px; color:var(--muted); font-variant-numeric:tabular-nums; flex:none}
+.num{font-family:"IBM Plex Mono", monospace; font-size:12px; color:var(--muted); flex:none; min-width:18px}
+.item > summary h3{
+  flex:1 1 auto; min-width:0; margin:0; font-size:15.5px; font-weight:500; line-height:1.35;
+  letter-spacing:-.011em; transition:color .2s;
+}
+.item[data-st="shot"] > summary h3{color:var(--muted)}
+.chip{
+  font-family:Unbounded, sans-serif; font-size:9px; font-weight:500; letter-spacing:.12em;
+  text-transform:uppercase; color:var(--muted); white-space:nowrap; flex:none;
+}
+.chip.f-otlichie{color:var(--ink2)}
+.chip.f-zayavka{color:var(--warn)}
+.flag{
+  font-size:11px; padding:3px 8px; border-radius:99px; flex:none; white-space:nowrap;
+  background:var(--warn-bg); color:var(--warn); font-weight:500;
+}
+.chev{color:var(--line); font-size:10px; flex:none; transition:transform .2s, color .2s}
+.item > summary:hover .chev{color:var(--muted)}
+.item[open] .chev{transform:rotate(90deg); color:var(--muted)}
+.item-body{padding:0 12px 22px 34px; margin-left:20px; border-left:1px solid var(--line2)}
+
+.props{margin-top:4px; font-size:13.5px; color:var(--ink2); max-width:60ch}
+.props b{display:block; margin-bottom:3px; font-family:Unbounded,sans-serif; font-size:9.5px; font-weight:500; letter-spacing:.13em; text-transform:uppercase; color:var(--muted)}
+
+.ctrls{display:grid; grid-template-columns:repeat(auto-fit, minmax(190px,1fr)); gap:14px; margin-top:18px}
+.fld{display:flex; flex-direction:column; gap:7px; min-width:0}
+.fld label{font-family:Unbounded,sans-serif; font-size:9.5px; font-weight:500; letter-spacing:.13em; text-transform:uppercase; color:var(--muted)}
+
+.seg{display:flex; background:var(--sunk); border-radius:9px; padding:3px; gap:3px}
+.seg button{
+  flex:1 1 0; min-width:0; appearance:none; border:none; border-radius:7px; background:transparent;
+  font-family:"Golos Text",sans-serif; font-size:12.5px; padding:7px 4px; cursor:pointer; color:var(--muted);
+  transition:background .15s, color .15s;
+}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--surface); color:var(--ink); font-weight:600; box-shadow:0 1px 2px rgba(21,22,26,.10)}
+.seg.g-ok button[data-val="shot"][aria-pressed="true"]{background:var(--ok); color:#fff}
+.seg.g-ok button[data-val="retake"][aria-pressed="true"]{background:var(--bad); color:#fff}
+.seg.g-ok button[data-val="moved"][aria-pressed="true"]{background:var(--warn); color:#fff}
+.seg button:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+
+input[type="text"]{
+  font-family:"IBM Plex Mono", monospace; font-size:12.5px;
+  background:var(--sunk); border:1px solid transparent; border-radius:9px;
+  padding:9px 11px; color:var(--ink); width:100%; min-width:0; transition:background .15s, border-color .15s;
+}
+input.note{font-family:"Golos Text", sans-serif; font-size:13.5px}
+input[type="text"]::placeholder{color:var(--muted)}
+input[type="text"]:focus{outline:none; background:var(--surface); border-color:var(--ink)}
+
+.jump{
+  background:none; border:none; padding:0; margin-top:16px; cursor:pointer; color:var(--muted);
+  font-family:"Golos Text",sans-serif; font-size:13px; border-bottom:1px solid var(--line);
+}
+.jump:hover{color:var(--ink); border-color:var(--ink)}
+.jump:focus-visible{outline:2px solid var(--ink); outline-offset:3px}
+
+/* ================= scripts ================= */
+.scr{border-bottom:1px solid var(--line2); background:transparent}
+.scr > summary{
+  list-style:none; cursor:pointer; padding:15px 12px; display:flex; gap:13px; align-items:center;
+  border-radius:10px; transition:background .15s;
+}
+.scr > summary::-webkit-details-marker{display:none}
+.scr > summary:hover{background:var(--surface)}
+.scr > summary:focus-visible{outline:2px solid var(--ink); outline-offset:-2px}
+.scr h3{margin:0; font-size:16px; font-weight:500; letter-spacing:-.012em; flex:1 1 200px; min-width:0}
+.scr .badge{font-family:"IBM Plex Mono",monospace; font-size:10.5px; padding:3px 8px; border-radius:99px; background:var(--sunk); color:var(--muted); flex:none}
+.scr .badge.on{background:var(--ok-bg); color:var(--ok)}
+.scr .badge.re{background:var(--bad-bg); color:var(--bad)}
+.scr-body{padding:4px 12px 38px}
+.facts{
+  display:flex; gap:7px 22px; flex-wrap:wrap; padding:0 0 22px;
+  font-size:11.5px; color:var(--muted); font-family:"IBM Plex Mono", monospace;
+}
+.facts span b{color:var(--ink2); font-weight:500}
+.text{max-width:58ch; border-left:2px solid var(--line); padding-left:22px}
+.text p{margin:0 0 1.05em; font-size:17px; line-height:1.72; letter-spacing:-.006em}
+.text p.stage{color:var(--muted); font-style:italic; font-size:14px; line-height:1.6}
+
+/* ================= b-roll ================= */
+.bro{
+  display:flex; gap:14px; align-items:center; flex-wrap:wrap;
+  padding:13px 12px; border-bottom:1px solid var(--line2); border-radius:10px; transition:background .15s;
+}
+.bro:hover{background:var(--surface)}
+.bro .txt{flex:1 1 250px; min-width:0}
+.bro .txt b{display:block; font-size:14.5px; font-weight:500; letter-spacing:-.008em}
+.bro .txt small{color:var(--muted); font-size:12px; font-family:"IBM Plex Mono",monospace}
+.bro .seg{flex:none}
+.bro .fl{flex:1 1 140px; min-width:120px; max-width:220px}
+
+/* ================= checklists ================= */
+.lists{display:grid; grid-template-columns:repeat(auto-fit,minmax(310px,1fr)); gap:18px; margin-top:22px}
+.list{background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:22px; box-shadow:var(--sh)}
+.list-head{display:flex; gap:14px; align-items:center; margin-bottom:20px}
+.list-head .t{flex:1; min-width:0}
+.list h3{font-size:17px; margin:0; font-weight:600; letter-spacing:-.015em}
+.list .who{color:var(--muted); font-size:12.5px; margin:2px 0 0; line-height:1.4}
+.list .cnt{display:block; font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); margin-top:5px}
+.ring{
+  width:46px; height:46px; border-radius:50%; display:grid; place-items:center; flex:none;
+  background:conic-gradient(var(--ok) calc(var(--p,0) * 1%), var(--sunk) 0); transition:background .4s;
+}
+.ring i{
+  width:36px; height:36px; border-radius:50%; background:var(--surface); display:grid; place-items:center;
+  font-family:"IBM Plex Mono",monospace; font-size:10.5px; font-style:normal; color:var(--ink2); font-variant-numeric:tabular-nums;
+}
+.grp{
+  font-family:Unbounded,sans-serif; font-size:9.5px; font-weight:500; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--muted); margin:22px 0 7px;
+}
+.grp:first-of-type{margin-top:0}
+.chk{display:flex; gap:11px; align-items:flex-start; padding:7px 0; cursor:pointer; font-size:14.5px; line-height:1.45}
+.chk input{
+  appearance:none; width:18px; height:18px; flex:none; margin-top:1px;
+  border:1.5px solid var(--line); border-radius:5px; background:var(--surface); cursor:pointer; position:relative;
+  transition:background .15s, border-color .15s;
+}
+.chk:hover input{border-color:var(--muted)}
+.chk input:checked{background:var(--ok); border-color:var(--ok)}
+.chk input:checked::after{
+  content:""; position:absolute; left:5.5px; top:1.5px; width:4px; height:9px;
+  border:solid #fff; border-width:0 2px 2px 0; transform:rotate(43deg);
+}
+.chk input:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+.chk input:checked + span{color:var(--muted); text-decoration:line-through; text-decoration-color:var(--line)}
+.crow{display:flex; gap:6px; align-items:flex-start}
+.crow .chk{flex:1; min-width:0}
+.crow .chk span{overflow-wrap:anywhere}
+.del{
+  appearance:none; border:none; background:none; color:var(--line); cursor:pointer;
+  font-size:18px; line-height:1; padding:5px 6px; border-radius:6px; margin-top:2px; flex:none; transition:color .15s, background .15s;
+}
+.crow:hover .del{color:var(--muted)}
+.del:hover{color:var(--bad); background:var(--bad-bg)}
+.del:focus-visible{outline:2px solid var(--ink); outline-offset:1px}
+.addrow{display:flex; gap:7px; margin-top:12px}
+.addrow input{font-family:"Golos Text",sans-serif; font-size:13.5px}
+.addrow button{
+  appearance:none; border:none; background:var(--ink); color:var(--paper);
+  font-family:"Golos Text",sans-serif; font-weight:500; font-size:13px;
+  padding:0 16px; border-radius:9px; cursor:pointer; white-space:nowrap;
+}
+.addrow button:hover{opacity:.87}
+.addrow button:focus-visible{outline:2px solid var(--ink); outline-offset:2px}
+textarea.notes{
+  width:100%; min-height:86px; resize:vertical; display:block;
+  font-family:"Golos Text",sans-serif; font-size:13.5px; line-height:1.55;
+  background:var(--sunk); border:1px solid transparent; border-radius:11px;
+  padding:11px 12px; color:var(--ink); transition:background .15s, border-color .15s;
+}
+textarea.notes::placeholder{color:var(--muted)}
+textarea.notes:focus{outline:none; background:var(--surface); border-color:var(--ink)}
+
+.gate{
+  position:fixed; inset:0; z-index:100; background:var(--paper);
+  display:grid; place-items:center; padding:24px;
+}
+.gate-box{width:100%; max-width:360px}
+.gate h2{font-family:Unbounded,sans-serif; font-size:19px; font-weight:600; margin:0 0 6px; letter-spacing:-.02em}
+.gate p{color:var(--muted); font-size:13.5px; margin:0 0 20px; line-height:1.5}
+.gate label{display:block; font-family:Unbounded,sans-serif; font-size:9.5px; font-weight:500; letter-spacing:.13em; text-transform:uppercase; color:var(--muted); margin:0 0 7px}
+.gate input{
+  width:100%; font-family:"Golos Text",sans-serif; font-size:15px; padding:12px 13px;
+  background:var(--sunk); border:1px solid transparent; border-radius:11px; color:var(--ink); margin-bottom:16px;
+}
+.gate input:focus{outline:none; background:var(--surface); border-color:var(--ink)}
+.gate button{
+  width:100%; appearance:none; border:none; background:var(--ink); color:var(--paper);
+  font-family:"Golos Text",sans-serif; font-weight:500; font-size:15px; padding:13px; border-radius:11px; cursor:pointer;
+}
+.gate button:hover{opacity:.87}
+.gate .err{color:var(--bad); font-size:13px; margin:-8px 0 14px; min-height:18px}
+
+.feed{margin-top:20px}
+.fe{display:flex; gap:13px; align-items:baseline; padding:11px 0; border-bottom:1px solid var(--line2); font-size:14px}
+.fe time{font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--muted); flex:none; min-width:78px}
+.fe .who{font-weight:600; flex:none}
+.fe .what{color:var(--ink2); flex:1; min-width:0}
+.whoami{font-size:12.5px; color:var(--muted); margin-left:auto}
+.whoami button{appearance:none; border:none; background:none; color:var(--muted); cursor:pointer; font-size:12.5px; text-decoration:underline; padding:0 0 0 6px; font-family:inherit}
+.whoami button:hover{color:var(--ink)}
+
+.panel{padding-top:2px}
+@media (max-width:600px){
+  .wrap, .top-in{padding-inline:16px}
+  .item > summary{gap:10px; padding:13px 8px}
+  .item > summary .chip{display:none}
+  .item-body{padding-left:20px; margin-left:8px}
+  .ctrls{grid-template-columns:1fr}
+  .tabs{gap:18px}
+  .bro{gap:10px}
+  .bro .fl{max-width:none}
+  .text{padding-left:16px}
+  .text p{font-size:16px}
+  .list{padding:18px}
+}
+@media (prefers-reduced-motion: reduce){
+  *{transition:none !important; animation:none !important}
+}
+</style>
+
+<div class="top">
+  <div class="top-in">
+    <div class="brand">
+      <h1>Съёмочная смена</h1>
+      <span class="sub">Астана Ремонт · Жасулан · 20 рилсов за 2 дня</span>
+    </div>
+    <div class="meter">
+      <div class="segbar" id="segbar"></div>
+      <b id="barnum">0 / 20</b>
+      <span class="m2" id="barx">ничего не снято</span>
+      <span class="saved" id="savedmark">сохранено</span>
+      <span class="whoami" id="whoami"></span>
+    </div>
+    <div class="tabs" role="tablist" id="tabs"></div>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="gate" id="gate" hidden>
+  <div class="gate-box">
+    <h2>Съёмочная смена</h2>
+    <p>Астана Ремонт. Отметьте себя, чтобы в журнале было видно, кто что снял.</p>
+    <label for="g-name">Как вас зовут</label>
+    <input type="text" id="g-name" placeholder="Ержан" autocomplete="name">
+    <div id="g-code-wrap" hidden>
+      <label for="g-code">Код доступа</label>
+      <input type="text" id="g-code" placeholder="код от Жасулана" autocomplete="off">
+    </div>
+    <div class="err" id="g-err"></div>
+    <button type="button" id="g-go">Войти</button>
+  </div>
+</div>
+<div id="notice" hidden></div>
+  <div id="panels"></div>
+</div>
+<script>
+const REELS = [
+{n:1, day:1, time:"09:00", loc:"A", fn:"otlichie", hunt:"4 — выбирает подрядчика",
+ title:"Алматинское дело, 70 млн",
+ dev:"Зачин обращением к зрителю · финал просьбой переслать",
+ props:"Ничего. Голые стены. Не называть фамилию и фирму — приговор не вступил в силу.",
+ text:[
+ "Это видео должен увидеть каждый гражданин Казахстана. И особенно если вы собрались делать ремонт или кто-то из ваших родственников. Поэтому им тоже отправьте.",
+ "В общем, есть один такой товарищ в Алматы. Который собрал двадцать четыре семьи и целых семьдесят миллионов тенге, обещая сделать ремонт под ключ.",
+ "Он брал предоплату, с кого-то всю сумму сразу. Люди кредиты под это брали, рассрочки оформляли.",
+ "А потом работы просто встали.",
+ "Он им говорил — кассовый разрыв у меня, бригада подвела, потерпите немного. И так месяцами. Люди звонят, он обещает. Люди приезжают, а на объекте никого.",
+ "Потом он пропал совсем.",
+ "И вот представьте. У человека кредит на три миллиона, который он платит каждый месяц. И квартира с голыми стенами, в которую он даже зайти не может.",
+ "Суд его виновным признал. Светит до семи лет.",
+ "Только деньги-то людям никто не вернул. И не вернёт.",
+ "Теперь давайте я вам объясню самое главное. Почему вообще эта схема работает.",
+ "Пока вы не заплатили — вы заказчик. Вам звонят, вам отвечают, под вас подстраиваются, вас уговаривают.",
+ "Заплатили вперёд — и вы уже никто. Теперь вы звоните. Вы уговариваете. Вы ищете, где эти люди.",
+ "Деньги поменяли местами вас и его. Вот и весь секрет.",
+ "Меня самого так кинули в двадцатом году. Я тогда квартиру в новостройке купил, денег впритык, друзья мастеров посоветовали. Я им отдал вперёд, как все делают. Они неделю поработали и пропали. Я потом год эту квартиру сам доделывал.",
+ "Поэтому когда я своё дело открывал, я сказал — предоплату брать не буду. И не беру до сих пор.",
+ "У нас платят по этапам. Сделали кусок работы, вы приехали, посмотрели, приняли — заплатили за него. Не понравилось — не платите, я за свои поработал.",
+ "Так что запомните одну вещь. Если у вас просят предоплату, а тем более всю сумму сразу — разворачивайтесь и уходите. Каким бы хорошим человек ни казался.",
+ "И отправьте это видео тем, кто собрался делать ремонт. Двадцать четыре семьи уже попались. Пусть ваши родные не станут двадцать пятой."]},
+
+{n:4, day:1, time:"09:30", loc:"A", fn:"doverie", hunt:"3 — сравнивает",
+ title:"Почему сумма выросла",
+ dev:"Зачин с реплики заказчика · финал прямым указанием",
+ props:"Стена со снятым покрытием, видно старую проводку. Можно держать смету в руках.",
+ text:[
+ "«Вы же называли другую сумму.»",
+ "Эту фразу подрядчик слышит примерно на третьем месяце. И чаще всего она справедливая.",
+ "Разберу, откуда берётся разница, чтобы вы потом не поймали её на себе.",
+ "Смету вам считают по той квартире, которую видно. Стены стоят, пол лежит, трубы закрыты коробом. Что под ними, не знает никто. Ни вы, ни я.",
+ "Работа начинается со сноса. И квартира открывается.",
+ "Под покрытием бетонный пол с трещиной, его надо заливать заново, а это ещё месяц ожидания. В стене старая алюминиевая проводка, её нельзя оставлять под новую технику. В санузле под плиткой сырое пятно от соседей сверху, и там уже грибок.",
+ "Ни одной из этих работ в смете не было. Честно поставить их туда было нельзя, потому что до сноса о них никто не знал.",
+ "Дальше есть два пути.",
+ "Первый путь такой. Вам сразу дают низкую цену, про скрытые работы молчат, а потом ставят перед фактом. Платите, иначе стройка стоит.",
+ "Второй путь. Вам называют твёрдую часть сметы и отдельно список того, что может вскрыться, с примерными суммами. Вы закладываете этот запас заранее.",
+ "Я работаю по второму. Доброта тут ни при чём. Первый вариант всегда кончается ссорой, а нам на этом объекте ещё полгода работать.",
+ "Пятнадцать процентов сверху — нормальный запас по вторичке в Астане. Кто закладывает меньше, тот потом занимает."]},
+
+{n:6, day:1, time:"09:55", loc:"A", fn:"doverie", hunt:"2 — чует проблему",
+ title:"На чём нельзя экономить",
+ dev:"Зачин с признания своей ошибки · финал личным действием",
+ props:"Санузел без плитки или открытые трубы в кадре.",
+ text:[
+ "Я один раз согласился сэкономить на том, чего потом не видно. Расскажу, чем это кончилось.",
+ "Заказчик попросил не трогать старые трубы в санузле. Трубы рабочие, не текут, зачем тратить деньги. Я был моложе и решил так: клиент платит, клиенту и решать.",
+ "Плитку положили, сантехнику поставили, квартиру сдали. Через несколько месяцев соединение под ванной начало сочиться. Не прорвало, просто пошла вода.",
+ "Чтобы до него добраться, разобрали часть стены и пола. Плитку из той же партии уже не нашли.",
+ "Санузел заказчик оплатил второй раз. Работу я переделывал за свой счёт, потому что ломали мы то, что клали мы.",
+ "Дальше по делу.",
+ "В квартире есть работы, которые видно, и работы, которых не видно. Видно плитку, краску, двери, свет. Не видно трубы, проводку, выравнивание стен и защиту от воды.",
+ "Резать бюджет заказчик почти всегда хочет там, где не видно. Логика понятная, гостям вы будете показывать не трубы.",
+ "Но всё, чего не видно, лежит под тем, что видно. Чтобы поменять нижнее, надо сломать верхнее.",
+ "Если денег не хватает, режьте чистовую часть. Плитку возьмите проще, двери поставьте недорогие, люстру купите через год.",
+ "Черновую часть не трогайте. Её делают один раз.",
+ "Себе я ремонт делал ровно по этому правилу."]},
+
+{n:13, day:1, time:"10:20", loc:"A", fn:"doverie", hunt:"2 — чует проблему",
+ title:"Недели, когда никто не работает",
+ dev:"Зачин через парадокс · финал на недосказанности",
+ props:"Свежезалитый пол или пустая комната без людей. Хорошо, если объект реально на паузе.",
+ text:[
+ "В нормальном ремонте есть недели, когда на объекте не работает вообще никто. И это правильно.",
+ "Возьмём бетонный пол. Его заливают жидким, и он должен отдать воду. Сохнет он медленно, примерно по сантиметру толщины за неделю, и это про первые четыре сантиметра. Дальше ещё медленнее.",
+ "Со стенами история похожая. Штукатурке тоже нужно время, и красить по сырому нельзя.",
+ "Что будет, если не ждать.",
+ "Ламинат, положенный на сырой пол, через полгода поднимется волнами по стыкам. Плитка на сыром основании начнёт отходить, вы это услышите по глухому звуку, когда пройдётесь. Краска по сырой стене пойдёт пятнами и местами отслоится.",
+ "Самое неприятное в том, что вылезет это не сразу. Квартиру вы примете, деньги отдадите, заедете. А проявится всё через сезон, когда включат отопление.",
+ "Поэтому в графике должны стоять недели ожидания. Это перерыв по технологии, и он должен стоять в графике отдельной строкой.",
+ "Заказчики этот пункт не любят. Я всё равно его ставлю, потому что приезжать через год и объяснять, почему вздулся пол, я не хочу.",
+ "Если вам обещают трёшку под ключ за месяц с небольшим, то сохнуть у вас ничего не будет. Дальше вы и сами понимаете."]},
+
+{n:10, day:1, time:"11:00", loc:"A", fn:"doverie", hunt:"1 — не знает о проблеме",
+ title:"Проводка",
+ dev:"Зачин через симптом · финал предупреждением",
+ props:"Открытый щиток. Кусок старого алюминиевого провода в руке. Штробы с новым кабелем.",
+ text:[
+ "Если у вас выбивает автомат, когда чайник и микроволновка работают вместе, проводка уже не тянет вашу технику.",
+ "В домах советской постройки провода алюминиевые и тонкие. Их считали под телевизор, холодильник и утюг. Не под духовку, посудомойку, стиралку, кондиционер и тёплый пол.",
+ "Что происходит дальше. Тонкий провод под большой нагрузкой греется. Греется он внутри стены, где вы этого не видите. Сначала плавится оболочка, потом начинает плавиться место соединения. Пахнет палёным обычно уже поздно.",
+ "Поэтому в нормальном ремонте проводку меняют целиком. Меняют её от щитка до каждой точки. Вариант «докинем от соседней розетки» тут не работает.",
+ "И делают это так. На кухню идёт своя линия. На стиральную машину своя. На кондиционер своя. Свет отдельно от розеток. В щитке на каждую линию свой автомат, чтобы при проблеме выключалась одна комната, а не вся квартира.",
+ "Стоит это заметных денег, и именно эту строчку заказчики просят убрать чаще всего. Потому что её не видно.",
+ "Скажу как есть. Если подрядчик легко соглашается оставить старую проводку и не спорит, он просто не хочет терять заказ.",
+ "Розетку вы потом перенесёте за час. Сгоревшую стену за час не перенесёте."]},
+
+{n:15, day:1, time:"11:25", loc:"A", fn:"doverie", hunt:"2 — чует проблему",
+ title:"Вода в санузле",
+ dev:"Зачин через сравнение стоимости · финал одной проверкой",
+ props:"Санузел до плитки. Промазанные углы и выходы труб. Ведро воды для демонстрации.",
+ text:[
+ "Залить соседей снизу стоит дороже, чем весь ваш санузел целиком.",
+ "Ремонт их потолка, обоев, иногда мебели и техники. Плюс разборка вашей новой плитки, чтобы добраться до места.",
+ "Защищает от этого один слой, о котором почти никто не спрашивает на встрече.",
+ "Под плиткой в санузле должен лежать слой, который не пропускает воду. Его наносят на пол и обязательно заводят на стены. Не на пять сантиметров для вида, а сантиметров на двадцать вверх, а в душевой зоне на всю высоту, куда долетают брызги.",
+ "Отдельно промазывают углы и места, где выходят трубы. Именно там вода находит дорогу.",
+ "Как халтурят. Мажут только пол, на стены не заходят. Или кладут в один слой вместо двух. Или наносят и сразу начинают класть плитку, не дав высохнуть.",
+ "Увидеть это потом нельзя никак. Всё закрыто плиткой.",
+ "Проверка существует только одна, и делается она до плитки. Слой высох, порог закрывают, на пол наливают воду и оставляют на сутки. Потом смотрят уровень воды и идут к соседям снизу.",
+ "Попросите сделать эту проверку при вас и снимите на телефон. Нормальный мастер согласится спокойно, отказываться ему незачем."]},
+
+{n:3, day:1, time:"11:50", loc:"A", fn:"doverie", hunt:"2 — чует проблему",
+ title:"Принять стену фонарём",
+ dev:"Зачин сценой из будущего · финал коротким приговором",
+ props:"Фонарь или телефон. Комнату надо затемнить — закрыть окно, снимать в помещении без окна.",
+ text:[
+ "Через полгода после ремонта вы вешаете бра. Включаете вечером — а стена вся в волнах. Днём этого не было.",
+ "Днём свет падает прямо, тени нет, стена кажется ровной. А вечером лампа светит сбоку — и всё вылезло.",
+ "Так вот, это же самое можно увидеть заранее. До покраски. И бесплатно.",
+ "Берёте фонарь. Обычный, хоть на телефоне. Свет в комнате выключаете. И ведёте фонарём вдоль стены, почти прижав его к поверхности.",
+ "Каждая волна даст тень. Каждая царапина от шкурки даст тень. Вы увидите ровно то, что увидите через полгода при своём светильнике.",
+ "Мастера про этот способ знают все. Просто вам не предлагают.",
+ "Потому что пока вы не посмотрели — стена сдана и можно идти дальше. А как посмотрели — её надо переделывать, а это два дня, которых в смете нет.",
+ "Так что берите фонарь до покраски. После покраски это уже не проверка. Это скандал."]},
+
+{n:8, day:1, time:"14:15", loc:"B", fn:"doverie", hunt:"3 — сравнивает",
+ title:"Откуда берутся полгода",
+ dev:"Зачин общим мифом · финал вопросом зрителю",
+ props:"Сданная квартира. Можно держать распечатанный график работ.",
+ text:[
+ "Трёшка под ключ за два месяца. Такой срок вам назовут в половине фирм города.",
+ "Считаем вместе, честно.",
+ "Снос и вывоз мусора — примерно неделя. Черновые работы, то есть трубы, проводка, выравнивание стен и пола — около месяца. Дальше всё это должно высохнуть, и тут работать нельзя никому. Чистовая отделка — ещё месяц с небольшим. Потом кухня, шкафы, техника, и это уже не мои сроки, а сроки поставщиков.",
+ "Даже без единой задержки два месяца не выходит.",
+ "А теперь про задержки.",
+ "Главная причина срыва срока — не бригада. Заказчик не выбрал плитку. Заказчик две недели думает над цветом стен. Кухню заказали в марте, приедет она в мае, а без кухни нельзя закончить электрику на этой стене.",
+ "Я эту мысль повторяю каждому и повторю здесь. Девяносто процентов виноватых в таких ситуациях — именно заказчик.",
+ "Без обид. Просто так есть.",
+ "Поэтому нормальный подрядчик в начале даёт вам не только смету, но и список решений с датами. До какого числа выбрать плитку, до какого двери, когда замерять кухню.",
+ "Вы уже выбрали плитку, двери и кухню? Если нет, ремонт начнётся не тогда, когда вы думаете."]},
+
+{n:18, day:1, time:"14:45", loc:"B", fn:"otlichie", hunt:"4 — выбирает подрядчика",
+ title:"Гарантия",
+ dev:"Зачин общим местом · финал проверяемым доказательством",
+ props:"Сданная квартира, желательно та, что делали год назад. Договор со страницей гарантии.",
+ text:[
+ "Гарантия один год. Эту строчку пишут все.",
+ "Посчитаем, что она вам даёт.",
+ "Первое. Гарантия на работу и гарантия на материал — разные вещи. Если через полгода отошла плитка, спор начнётся с того, чей это вопрос. В договоре должно быть написано, что подрядчик отвечает за работу независимо от того, кто покупал материал.",
+ "Второе. Кто приедет. У фирмы гарантийный выезд часто выглядит так: бригада распущена, объект закрыт, вам предлагают подождать, пока освободятся люди. Ждать можно месяцами.",
+ "Третье. Что гарантия не покрывает. Этот список должен быть написан, а не додуман потом. Обычно туда честно входят трещины от усадки нового дома и повреждения от вашей техники.",
+ "И главное. Гарантия существует только на бумаге. Обещание на словах на встрече не стоит ничего, когда через год вы звоните, а номер недоступен.",
+ "Гарантия работает только там, где есть кому приехать.",
+ "У нас на работу [СРОК] года, и это записано в договоре с компанией, а не сказано на встрече. По гарантийным вопросам выезжает тот же мастер, который делал. Он никуда не делся, он у нас в штате.",
+ "За прошлый год таких выездов было [ЧИСЛО]. Я их не прячу, они бывают у всех, кто действительно работает."]},
+{n:5, day:2, time:"09:30", loc:"G", fn:"otlichie", hunt:"4 — выбирает подрядчика",
+ title:"Воздушники",
+ dev:"Зачин через слово из их среды · финал проверяемым действием",
+ props:"Офис, за спиной работают люди. Предупредить сотрудников о съёмке и спросить согласие.",
+ text:[
+ "Есть у нас слово — воздушник. Так мастера между собой называют тех, кто продаёт ремонт, которого у него нет.",
+ "Работает он так.",
+ "У воздушника нет ни одного своего человека. Он берёт заказ, потом идёт искать бригаду под него. Находит тех, кто сегодня свободен, то есть тех, кого не взяли другие. Кто это будет, он сам узнаёт за день до старта.",
+ "Офиса у него тоже нет. Есть страница с красивыми чужими фотографиями и номер телефона.",
+ "Договор он подписывает от своего имени, как физическое лицо. Спрашивать с него по закону почти нечего.",
+ "И самое неприятное начинается после сдачи. Через полгода у вас вопрос по гарантии, вы звоните, а бригада давно разошлась по другим адресам. Собирать её ему не за что и незачем.",
+ "Проверяется всё это за один день.",
+ "Попросите адрес офиса и приезжайте без предупреждения. Посмотрите, сидят ли там люди. Спросите, сколько человек в штате и сколько лет работает плиточник. Попросите договор с юридическим лицом и посмотрите, есть ли там штраф за срыв срока.",
+ "У нас офис по адресу [АДРЕС], бригада в штате, договор от компании. Приезжайте и посмотрите сами, я вас никуда вести не собираюсь."]},
+
+{n:17, day:2, time:"10:00", loc:"G", fn:"doverie", hunt:"1 — личное, на охват",
+ title:"Как появилась компания",
+ dev:"Зачин с года и места · финал фактом сегодняшнего дня",
+ props:"Офис. В кадре сотрудники. Нужны реальные факты от Жасулана — без них не снимаем.",
+ text:[
+ "[Сценарий на заполнение. Скобки — настоящие данные Жасулана, я их не выдумываю.]",
+ "В [ГОД] я работал [КЕМ] и про ремонт не знал ничего. Бригады у меня не было, офиса тем более.",
+ "Первую квартиру я взял [КАК]. Работал на ней [С КЕМ], и половину денег отдал за свои же ошибки.",
+ "Первый постоянный мастер появился у меня в [ГОД]. Это [ИМЯ], плиточник, он со мной [СКОЛЬКО] лет. С него, если честно, компания и началась.",
+ "Дальше было так. Один хороший мастер приводит второго, второй третьего. Через [СКОЛЬКО] лет у меня работало [СКОЛЬКО] человек, и их надо было чем-то занимать постоянно. Бригаду нельзя держать от заказа до заказа, люди уйдут.",
+ "Тогда и появился офис. Офис появился под задачу. Нужно место, где считают сметы, хранят договоры и куда может приехать заказчик.",
+ "Сейчас в компании [СКОЛЬКО] человек. Плиточники, электрики, сантехники, маляры — все свои, не с биржи. Объектов одновременно ведём [СКОЛЬКО].",
+ "На первую встречу я по-прежнему езжу сам. По квартире в первые десять минут понятно, за что мы беремся.",
+ "Сегодня у нас в работе [СКОЛЬКО] квартир в [РАЙОНЫ]. Ближайшую сдаём в [МЕСЯЦ]."]},
+
+{n:20, day:2, time:"10:30", loc:"G", fn:"doverie", hunt:"1 — личное, на охват",
+ title:"Зачем я это снимаю",
+ dev:"Обращение к досмотревшему · открытый финал",
+ props:"Офис. Снимать спокойно, без нажима, чуть тише по подаче, чем остальные.",
+ text:[
+ "Если вы досмотрели до этого места, скажу прямо, зачем всё это снимается.",
+ "У меня компания, в ней работают люди, и заказы мне нужны. Скрывать это смысла нет, вы и так всё понимаете.",
+ "Но снимаю я не поэтому.",
+ "Человек делает ремонт два-три раза за жизнь. Разбираться в нём ему некогда. Поэтому подрядчика выбирают по ощущению от разговора и по чужим фотографиям в ленте.",
+ "А платят потом за это годами.",
+ "Я решил показывать, как работа выглядит изнутри. Как считается смета. Что прячут в черновой части. Почему сроки уезжают. Где вас обманут так, что вы этого даже не заметите.",
+ "Половина того, что я говорю, пригодится вам с другим подрядчиком. Меня это устраивает. Рынок, на котором заказчик разбирается, для нас удобнее.",
+ "Вопросы по своему ремонту пишите в комментарии, отвечаю сам.",
+ "А если увидите, что я в чём-то ошибся, пишите тоже. Мастера меня здесь читают, я знаю."]},
+
+{n:2, day:2, time:"11:15", loc:"V", fn:"doverie", hunt:"3 — сравнивает",
+ title:"Смета без раздела «не входит»",
+ dev:"Зачин через входящую просьбу · финал на наблюдении",
+ props:"Распечатанная смета в руках. Договор со страницей «в стоимость не входит».",
+ text:[
+ "Мне вчера скинули смету. Спрашивают — нормально или нет.",
+ "Смотрю. Двушка, семьдесят квадратов, внизу цифра два с половиной миллиона. Красиво написано, всё по строчкам.",
+ "Только это не цена ремонта. Это цена работы мастеров, и больше ничего.",
+ "Материалов тут нет вообще. Ни плитки, ни краски, ни грунта, ни мешка клея. А это ещё примерно столько же денег.",
+ "Доставки нет. Подъёма на этаж нет. Вывоза мусора нет.",
+ "И самого неприятного нет — запаса на то, что вскроется. А вскроется всегда. Я за пять лет ни одного объекта без сюрприза не видел.",
+ "Получается, женщине назвали два с половиной. Отдаст она около пяти.",
+ "И самое интересное — её никто не обманул. Спросили про работу, назвали работу. Формально не придерёшься.",
+ "Я ей что ответил. Верните им эту бумагу и попросите дописать снизу один раздел. Называется «в стоимость не входит».",
+ "Кто сядет и распишет — с тем работайте.",
+ "А кто скажет «да мы там по ходу разберёмся» — вы с этим человеком уже поссорились. Просто пока об этом не знаете.",
+ "У меня, кстати, этот список прямо в договоре идёт. Отдельной страницей."]},
+
+{n:11, day:2, time:"11:40", loc:"V", fn:"otlichie", hunt:"4 — выбирает подрядчика",
+ title:"Один вопрос подрядчику",
+ dev:"Зачин через тест-вопрос · финал через свой договор",
+ props:"Договор на столе, открыть на странице со сроками и штрафом.",
+ text:[
+ "Задайте подрядчику один вопрос: что будет, если он сорвёт срок.",
+ "По ответу вы поймёте про него больше, чем по портфолио.",
+ "Ответов обычно два.",
+ "Первый звучит так: «Ну мы постараемся, у нас ещё не было задержек». Это означает, что ответственности за срок он не несёт никакой.",
+ "Второй ответ — человек открывает договор и показывает пункт. Там написана дата сдачи и написано, что он платит за каждый день просрочки.",
+ "Раз уж заговорили про договор, назову, что в нём должно быть. Записывайте или сохраняйте.",
+ "Дата начала и дата окончания работ, конкретными числами. Полный список работ с объёмами. Сумма, разбитая по этапам. Отдельная страница с тем, что в сумму не входит. Ответственность за срыв срока с обеих сторон. Срок гарантии и что именно под неё попадает. Порядок приёмки, то есть как вы принимаете каждый этап.",
+ "Если договор помещается на одном листе и состоит из общих фраз, он защищает только подрядчика.",
+ "У нас в договоре есть все эти пункты, включая штраф компании за просрочку. Я знаю, сколько это может стоить, поэтому со сроками на встрече не фантазирую."]},
+
+{n:7, day:2, time:"12:05", loc:"V", fn:"zayavka", hunt:"4 — выбирает подрядчика",
+ title:"Почему я не называю цену по телефону",
+ dev:"Зачин с отказа · финал прямым призывом",
+ props:"Смета по позициям на столе. Телефон в кадре.",
+ text:[
+ "Цену по телефону я не называю. Причина одна, и она денежная.",
+ "Когда подрядчик с ходу говорит «тридцать пять тысяч за квадрат», он говорит это не про вашу квартиру. Он называет средний прайс. Вашу квартиру он не видел.",
+ "А там может быть завал стены в пять сантиметров. Или щиток, в который нельзя добавить ни одной линии. Или потолок, который придётся опускать из-за труб.",
+ "Цифра из телефона потом всё равно вырастет. Просто вы узнаете об этом на третьем месяце.",
+ "Поэтому на первый замер я приезжаю сам.",
+ "После замера вы получаете смету по позициям. Список работ, цена по каждой строке, срок по каждой строке. Отдельной страницей — что в сумму не входит.",
+ "Дальше вы спокойно сравниваете её с другими. Я не тороплю и не прошу решать на месте.",
+ "Замер бесплатный. Никаких обязательств он на вас не накладывает.",
+ "Напишите мне в личные сообщения адрес и площадь квартиры. Согласуем время и приеду."]},
+
+{n:14, day:2, time:"13:30", loc:"V", fn:"zayavka", hunt:"5 — готов начинать",
+ title:"Сколько стоит ремонт",
+ dev:"Зачин через вилку цен · финал предложением посчитать",
+ props:"Нужны реальные вилки от Жасулана. Без цифр ролик не снимаем.",
+ text:[
+ "[Скобки — реальные вилки Жасулана. Цифры не сочиняю.]",
+ "Ремонт двухкомнатной в Астане сегодня стоит от [СУММА] до [СУММА]. Сейчас скажу, чем отличаются края этой вилки, потому что разница там не в красоте.",
+ "Нижний край. Это косметика. Обои, покраска, ламинат, замена сантехники на месте. Трубы и проводка остаются старые. Стены не выравниваются, а подготавливаются под обои. Такой ремонт делается за [СРОК] и живёт [СРОК].",
+ "Середина. Полная замена труб и проводки, выравнивание стен под покраску, новый пол с заливкой, санузел под ключ с защитой от воды, межкомнатные двери. Это то, что мы называем ремонтом под ключ, и это [СУММА] за квадрат по работе. Материалы считаются отдельно, потому что плитку за пять тысяч и плитку за двадцать кладут одинаково.",
+ "Верхний край. Перепланировка с согласованием, сложные потолки, встроенная мебель, тёплые полы во всей квартире, техника из другой ценовой категории.",
+ "Две вещи, которые двигают цену сильнее всего. Санузел, потому что там больше всего работ на квадратный метр. И состояние квартиры до начала, потому что разница между новостройкой и хрущёвкой — это [СУММА].",
+ "Точную цифру по вашей квартире без осмотра не назовёт никто.",
+ "Скиньте мне в личные сообщения площадь и планировку. Скажу вилку в тот же день, бесплатно и без разговоров про «давайте встретимся»."]},
+
+{n:9, day:2, time:"14:00", loc:"V", fn:"doverie", hunt:"3 — сравнивает",
+ title:"Кто покупает материалы",
+ dev:"Зачин через три схемы · финал его собственной формулировкой",
+ props:"Стопка чеков на материалы. Смета с отдельным списком материалов. Марки не показывать.",
+ text:[
+ "Материалы на ремонт покупают по трём схемам, и в двух из них вы переплачиваете, не зная об этом.",
+ "Первая схема. Вы покупаете всё сами. Звучит честно, на деле это ваши выходные, ваш транспорт и ваши ошибки в количестве. Купили на три упаковки меньше — стройка встала, потому что партия уже другая по оттенку.",
+ "Вторая схема. Покупает подрядчик и берёт процент сверху. Процент этот вам никто не назовёт. Вы видите в смете «плитка, столько-то тенге» и не знаете, сколько из этого ушло за материал, а сколько в карман. Здесь же появляется откат от магазина, когда мастеру выгодно вести вас туда, где ему платят, а не туда, где дешевле.",
+ "Третья схема. Покупает подрядчик по своим оптовым ценам и отдаёт вам чеки. Скидка поставщика остаётся вам, подрядчик зарабатывает на работе.",
+ "Как проверить, по какой схеме работают с вами. В смете должен быть отдельный список материалов с количеством и ценой за единицу. Не общая строка «материалы», а позиции: сколько квадратов плитки, сколько мешков смеси, сколько метров кабеля.",
+ "И ещё про сами материалы, раз уж зашла речь. Плохого материала почти не бывает. Раз им пользуются годами, значит он проверен временем. Ребята, головой надо думать и стараться над результатом. Тогда будет всем счастье."]},
+
+{n:12, day:2, time:"14:25", loc:"V", fn:"doverie", hunt:"3 — сравнивает",
+ title:"Дизайн-проект",
+ dev:"Зачин через возражение · финал через цифру",
+ props:"План розеток или чертёж на столе. Можно ноутбук с открытым планом.",
+ text:[
+ "Дизайн-проект — это лишние деньги. Так думает примерно каждый второй заказчик, и я понимаю почему.",
+ "В голове проект выглядит как красивые картинки квартиры, которой ещё нет. Картинки действительно можно не заказывать.",
+ "Но кроме картинок в проекте есть рабочая часть. По ней работают мастера, и готова она должна быть до начала.",
+ "Смотрите, что в неё входит.",
+ "План розеток и выключателей, с высотой от пола. Электрик по нему работает, не спрашивая вас каждые полчаса. План освещения, чтобы свет попадал туда, где вы стоите, а не в центр комнаты. Раскладка плитки, чтобы у двери и в углах не оказалось узких обрезков. План стен и дверных проёмов. Список всего, что нужно купить, с количеством.",
+ "Без этих листов происходит одно и то же. Стены отштробили, провода заложили, стены закрыли. А потом вы ставите кровать и понимаете, что розетка оказалась за спинкой.",
+ "Переделать одну розетку после этого — значит снова резать стену, штукатурить и красить участок. Плюс несколько дней ожидания.",
+ "Рабочая часть проекта на двухкомнатную стоит меньше, чем три такие переделки. А их обычно набирается больше трёх."]},
+
+{n:16, day:2, time:"14:50", loc:"V", fn:"otlichie", hunt:"4 — выбирает подрядчика",
+ title:"Как принимать этапы",
+ dev:"Зачин через классификацию · финал спокойным возражением себе",
+ props:"Акт приёмки этапа на столе. График платежей.",
+ text:[
+ "Деньги за ремонт отдают тремя способами.",
+ "Первый способ — всё вперёд, обычно за скидку. Второй — равными частями раз в неделю или раз в месяц, без привязки к работам. Третий — по этапам, и каждый этап вы перед оплатой принимаете.",
+ "Работает нормально только третий. На практике он выглядит так.",
+ "Этапов в квартире обычно четыре или пять. Снос. Трубы и проводка. Выравнивание стен и пола. Чистовая отделка. Сдача.",
+ "Каждый из них закрывается вашим осмотром. Слов «всё готово» для этого мало.",
+ "После труб и проводки вы принимаете по фотографиям стен до закрытия и по плану розеток. Открываете воду и смотрите соединения. После черновых работ прикладываете правило к стене и смотрите зазор, проверяете углы. После чистовой смотрите стыки, двери, работу каждой розетки и выключателя.",
+ "Только после этого подписывается акт на этап и платятся деньги за него.",
+ "Что это даёт вам. Если работа сделана плохо, вы узнаёте об этом на этапе, а не в конце, и у подрядчика есть причина исправить.",
+ "Что это даёт нам. Мы знаем, что нас не оставят без денег за сделанное.",
+ "Мне на это возражают, что так медленнее и бумажной возни больше. Согласен, медленнее. Зато никто не остаётся ни без денег, ни без ремонта."]},
+
+{n:19, day:2, time:"15:15", loc:"V", fn:"zayavka", hunt:"5 — готов начинать",
+ title:"Кому я отказываю",
+ dev:"Зачин через отказ с цифрой · финал приглашением «своим»",
+ props:"Стол, спокойный кадр. Нужно число отказов за год.",
+ text:[
+ "В этом году я отказался от [ЧИСЛО] заказов. Расскажу, от каких, и вы сразу поймёте, подхожу я вам или нет.",
+ "Отказываю, когда человек просит сделать «как-нибудь подешевле». Не дешевле по материалу, а дешевле по работе. Это всегда означает пропустить то, чего не видно, а потом отвечать за результат буду я.",
+ "Отказываю, когда не хотят договор. Обычно объясняют это доверием. Заканчивается это тем, что через три месяца мы по-разному помним, о чём договаривались.",
+ "Отказываю, когда в семье нет одного решения. Муж хочет одно, жена другое, тёща третье. Мастера в такой квартире переделывают одно и то же по три раза, и виноватым остаётся подрядчик.",
+ "И отказываю, когда меня зовут доделать за кем-то без полного сноса сделанного. Отвечать за чужую работу я не буду.",
+ "Теперь про тех, с кем мы сработаемся.",
+ "Вам нужна квартира, в которой вы собираетесь жить. Вы готовы к тому, что это месяцы, а не недели. Вы хотите смету по строчкам, договор с компанией и приёмку по этапам.",
+ "Мощность у нас есть. Одновременно ведём [СКОЛЬКО] объектов, бригада в штате, под ваш заказ никого искать не надо.",
+ "Отказываюсь я не от жадности к выбору. Просто квартира, за которую взялись неправильно, потом год отнимает у всех.",
+ "Напишите мне, разговор начнём с замера, а не с цены."]},
+];
+const LOCS = {
+  A:{name:"Объект в черновой стадии", hint:"Голые стены, щиток, санузел без плитки"},
+  B:{name:"Сданная квартира",        hint:"Готовый объект, желательно годовалый"},
+  G:{name:"Офис, общий план",        hint:"Видно людей за работой"},
+  V:{name:"Стол с документами",      hint:"Офис, договор и смета в кадре"}
+};
+const FN = {doverie:"Доверие", otlichie:"Отличие", zayavka:"Заявка"};
+
+const DAYS = {
+ 1:{title:"День 1 · два адреса · 9 роликов", rows:[
+  {k:"block", loc:"A", time:"08:30", note:"Приезд, свет, звук, тест-дубль. Первым снимаем самый важный, пока голос свежий."},
+  {k:"reel", n:1},{k:"reel", n:4},{k:"reel", n:6},{k:"reel", n:13},
+  {k:"break", time:"10:45", text:"Перерыв. Перестановка к щитку, потом в санузел."},
+  {k:"reel", n:10},{k:"reel", n:15},{k:"reel", n:3},
+  {k:"break", time:"12:20", text:"Доп. кадры на объекте — весь список из вкладки «Доп. съёмки»."},
+  {k:"break", time:"13:00", text:"Обед и переезд в сданную квартиру."},
+  {k:"block", loc:"B", time:"14:00", note:"Сменить рубашку. Локация другая — пусть и вид другой, лента не должна выглядеть одной съёмкой."},
+  {k:"reel", n:8},{k:"reel", n:18},
+  {k:"break", time:"15:15", text:"Доп. кадры в сданной квартире. Если успеваем — вечерний свет вдоль стены для ролика 3."}
+ ]},
+ 2:{title:"День 2 · офис · 11 роликов", rows:[
+  {k:"block", loc:"G", time:"09:00", note:"Предупредить сотрудников, убрать лишнее со столов, проверить, что в кадре нет чужих документов."},
+  {k:"reel", n:5},{k:"reel", n:17},{k:"reel", n:20},
+  {k:"break", time:"11:00", text:"Перестановка на стол. Разложить договор, смету, акт приёмки, чеки, план розеток."},
+  {k:"block", loc:"V", time:"11:15", note:"Композицию внутри блока не менять. Восемь роликов подряд — следить, чтобы подача не стала монотонной."},
+  {k:"reel", n:2},{k:"reel", n:11},{k:"reel", n:7},
+  {k:"break", time:"12:30", text:"Обед. Сменить рубашку — восемь роликов в одной выглядят одним длинным видео."},
+  {k:"reel", n:14},{k:"reel", n:9},{k:"reel", n:12},{k:"reel", n:16},{k:"reel", n:19},
+  {k:"break", time:"15:45", text:"Доп. кадры в офисе и по документам."}
+ ]}
+};
+
+const BROLL = [
+ {id:"b01", day:1, place:"Объект", t:"Фонарь вдоль стены, видно волны и тени", u:"ролик 3"},
+ {id:"b02", day:1, place:"Объект", t:"Открытый щиток крупно, старый провод в руке", u:"ролик 10"},
+ {id:"b03", day:1, place:"Объект", t:"Штробы со свежим кабелем", u:"ролик 10"},
+ {id:"b04", day:1, place:"Объект", t:"Свежезалитый пол, крупно поверхность", u:"ролик 13"},
+ {id:"b05", day:1, place:"Объект", t:"Санузел до плитки, промазанные углы и выходы труб", u:"ролик 15"},
+ {id:"b06", day:1, place:"Объект", t:"Вода налита на пол санузла — проверка", u:"ролик 15"},
+ {id:"b07", day:1, place:"Объект", t:"Демонтаж, мешки со строительным мусором", u:"ролик 4"},
+ {id:"b08", day:1, place:"Объект", t:"Руки плиточника, ряд плитки, уровень", u:"общее"},
+ {id:"b09", day:1, place:"Объект", t:"Правило приложено к стене, виден зазор", u:"ролик 16"},
+ {id:"b10", day:1, place:"Объект", t:"Разводка труб крупно", u:"ролик 6"},
+ {id:"b11", day:1, place:"Объект", t:"Жасулан идёт по объекту с прорабом, общий план", u:"ролики 5, 17"},
+ {id:"b12", day:1, place:"Сданная квартира", t:"Медленный проход по готовой квартире", u:"ролики 8, 18"},
+ {id:"b13", day:1, place:"Сданная квартира", t:"Вечерний свет от бра вдоль стены", u:"ролик 3"},
+ {id:"b14", day:2, place:"Офис", t:"Входная группа, вывеска, адрес", u:"ролик 5"},
+ {id:"b15", day:2, place:"Офис", t:"Люди за столами, сметчик за монитором", u:"ролики 5, 14"},
+ {id:"b16", day:2, place:"Офис", t:"Договор крупно, страница «в стоимость не входит»", u:"ролики 2, 11"},
+ {id:"b17", day:2, place:"Офис", t:"Пункт про штраф за срыв срока крупно", u:"ролик 11"},
+ {id:"b18", day:2, place:"Офис", t:"Смета по позициям, палец ведёт по строкам", u:"ролики 7, 9, 14"},
+ {id:"b19", day:2, place:"Офис", t:"Акт приёмки этапа, подпись", u:"ролик 16"},
+ {id:"b20", day:2, place:"Офис", t:"План розеток, чертёж на столе", u:"ролик 12"},
+ {id:"b21", day:2, place:"Офис", t:"Стопка чеков на материалы", u:"ролик 9"},
+ {id:"b22", day:2, place:"Офис", t:"Телефон с входящими сообщениями, личные данные закрыть", u:"ролики 7, 14, 19, 20"},
+ {id:"b23", day:2, place:"Офис", t:"Архив фотографий прошлых объектов на экране", u:"ролик 17"}
+];
+
+const CHECKS = [
+ {id:"zh", who:"Жасулан", sub:"Подготовка и то, что нельзя говорить в кадре", groups:[
+  {g:"Цифры, которых не хватает", items:[
+   "Вилка цен для ролика 14: нижний край, середина за квадрат, верхний край",
+   "Разница в цене между новостройкой и вторичкой",
+   "Адрес офиса",
+   "Сколько человек в штате",
+   "Сколько объектов ведём одновременно",
+   "Имя и стаж плиточника",
+   "Срок гарантии на работу",
+   "Сколько гарантийных выездов было за прошлый год",
+   "Сколько заказов отклонили в этом году",
+   "Факты для ролика 17: год, кем работал, первая квартира, первый мастер",
+   "Стоимость рабочей части проекта на двушку",
+   "Сколько времени занимает замер"]},
+  {g:"До съёмки", items:[
+   "Прочитать все 20 сценариев вслух и отметить слова, которые я так не говорю",
+   "Решить по фразе «девяносто процентов виноват заказчик» в ролике 8",
+   "Заполнить скобки в роликах 14, 17, 19 — без них снимать нечего",
+   "Взять согласие сотрудников на съёмку в кадре",
+   "Собрать реквизит: договор, смета, акт приёмки, план розеток, чеки",
+   "Два комплекта одежды на каждый день, без мелкой полоски и логотипов",
+   "Предупредить бригаду и офис о дате",
+   "Согласовать доступ на объект и в сданную квартиру с хозяевами"]},
+  {g:"Юридическое, проверить перед камерой", items:[
+   "Ролик 1: не называть фамилию и фирму — приговор не вступил в силу",
+   "Ролик 9: не называть марки материалов",
+   "Нигде не называть конкурентов по имени",
+   "Чужая квартира в кадре — только с письменного разрешения хозяев"]},
+  {g:"В день съёмки", items:[
+   "Выспаться, не садить голос накануне",
+   "Заряженный телефон и фонарь для ролика 3",
+   "Не импровизировать поверх сценария больше одной фразы",
+   "После каждого ролика сказать оператору: годится или ещё дубль"]}
+ ]},
+ {id:"op", who:"Мобилограф", sub:"Одинаковые настройки на оба дня", groups:[
+  {g:"Настройки, не менять весь проект", items:[
+   "Вертикаль 9:16, 4K, 30 кадров в секунду",
+   "Баланс белого вручную, не авто",
+   "Экспозиция вручную, не авто",
+   "Выдержка 1/60 при 30 кадрах"]},
+  {g:"Звук", items:[
+   "Петличка на каждом ролике",
+   "Дубль звука на камеру как страховка",
+   "Проверить наушниками перед первым дублем каждого блока",
+   "Выключить кондиционер, вытяжку и всё, что гудит"]},
+  {g:"Съёмка", items:[
+   "Два плана на каждый ролик: средний и крупный",
+   "Минимум два полных дубля на ролик",
+   "Перед дублем назвать голосом: сценарий четыре, дубль один",
+   "Следить за фоном: мусор, бутылки, провода, чужие лица",
+   "Композицию внутри одного блока не менять",
+   "Свет: ключевой сбоку, заполняющий в лицо, окно не за спиной"]},
+  {g:"После каждого блока", items:[
+   "Снять доп. кадры сразу, не откладывать на конец дня",
+   "Проверить карту и заряд перед следующим блоком",
+   "Вечером скинуть материал и вписать имена файлов в эту таблицу"]}
+ ]},
+ {id:"ed", who:"Монтажёр", sub:"Одинаковая упаковка у всех двадцати", groups:[
+  {g:"Общее", items:[
+   "Формат 1080×1920, mp4, h264",
+   "Имя файла: REEL_XX_тема_v1.mp4",
+   "Сдавать пачками по три ролика, не по одному"]},
+  {g:"Картинка", items:[
+   "Первые три секунды без пауз, резать сразу в текст",
+   "Убрать все «эээ», вдохи и паузы длиннее полсекунды",
+   "Перебивка каждые 5–8 секунд из доп. кадров",
+   "Цвет одинаковый внутри одного дня"]},
+  {g:"Текст и звук", items:[
+   "Субтитры обязательно, крупные, не в зоне интерфейса Reels",
+   "Проверить субтитры по словам: имена, цифры, термины",
+   "Нормализовать голос, шумодав аккуратно",
+   "Музыка тихо или без неё, голос главное"]},
+  {g:"Финал", items:[
+   "Ролики 7, 14, 19: плашка «напишите в директ» последние две секунды",
+   "Остальные: призыв только голосом, без графики",
+   "Титр с номером сценария в рабочей версии, убрать в финальной",
+   "Перед сдачей посмотреть без звука: понятно ли по субтитрам"]}
+ ]}
+];
+
+/* ------------------------------------------------------------------ */
+const byN = {}; REELS.forEach(r => byN[r.n] = r);
+const pad = n => "r" + String(n).padStart(2,"0");
+const state = { reels:{}, broll:{}, checks:{} };
+REELS.forEach(r => state.reels[r.n] = {status:"", rating:"", files:"", note:""});
+BROLL.forEach(b => state.broll[b.id] = {status:"", files:""});
+state.custom = {}; state.notes = {};
+
+const el = (t,c,x) => { const e=document.createElement(t); if(c) e.className=c; if(x!=null) e.textContent=x; return e; };
+
+/* ================= хранилище: Supabase ================= */
+const CFG = window.BOARD_CONFIG || {};
+const SB = (CFG.url && CFG.key) ? {base: String(CFG.url).replace(/\/+$/,"").replace(/\/rest\/v1$/,"") + "/rest/v1/", key: CFG.key} : null;
+let online = !!SB;
+
+function lsKey(p){ return "smena:"+p; }
+function lsGet(p){ try{ const v=localStorage.getItem(lsKey(p)); return v?JSON.parse(v):null; }catch(e){ return null; } }
+function lsSet(p,b){ try{ localStorage.setItem(lsKey(p), JSON.stringify(b)); }catch(e){} }
+
+function myName(){ try{ return localStorage.getItem("smena:name") || "кто-то"; }catch(e){ return "кто-то"; } }
+
+async function sb(path, opts){
+  opts = opts || {};
+  const r = await fetch(SB.base + path, {
+    method: opts.method || "GET",
+    headers: Object.assign({
+      apikey: SB.key,
+      Authorization: "Bearer " + SB.key,
+      "Content-Type": "application/json"
+    }, opts.headers || {}),
+    body: opts.body
+  });
+  if(!r.ok) throw new Error(r.status + " " + (await r.text()).slice(0,180));
+  const t = await r.text();
+  return t ? JSON.parse(t) : null;
+}
+async function sbSave(id, data){
+  await sb("board?on_conflict=id", {
+    method: "POST",
+    headers: {Prefer: "resolution=merge-duplicates,return=minimal"},
+    body: JSON.stringify([{id: id, data: data, who: myName(), updated_at: new Date().toISOString()}])
+  });
+}
+async function sbDrop(id){
+  await sb("board?id=eq." + encodeURIComponent(id), {method:"DELETE", headers:{Prefer:"return=minimal"}});
+}
+async function sbAll(){ return sb("board?select=id,data"); }
+async function sbLog(what){
+  if(!SB) return;
+  try { await sb("activity", {method:"POST", headers:{Prefer:"return=minimal"}, body: JSON.stringify([{who: myName(), what: what}])}); } catch(e){}
+}
+async function sbFeed(){ return sb("activity?select=at,who,what&order=at.desc&limit=60"); }
+
+/* ---------- отложенная запись ---------- */
+const pending = {};
+function persist(path, body){
+  if(pending[path]) clearTimeout(pending[path].t);
+  pending[path] = {body: body, t: setTimeout(() => flushOne(path), 400)};
+}
+async function flushOne(path){
+  const e = pending[path];
+  if(!e) return;
+  clearTimeout(e.t); delete pending[path];
+  lsSet(path, e.body);
+  if(!SB){ blink(); return; }
+  try { await sbSave(path, e.body); markOnline(true); blink(); }
+  catch(err){ markOnline(false); }
+}
+function flushAll(){ Object.keys(pending).forEach(flushOne); }
+window.addEventListener("pagehide", flushAll);
+window.addEventListener("blur", flushAll);
+document.addEventListener("visibilitychange", () => { if(document.visibilityState === "hidden") flushAll(); });
+
+let blinkT = null;
+function blink(){
+  const s = document.getElementById("savedmark");
+  if(!s) return;
+  s.classList.add("on"); clearTimeout(blinkT);
+  blinkT = setTimeout(() => s.classList.remove("on"), 1300);
+}
+function markOnline(ok){
+  if(ok === online) return;
+  online = ok;
+  if(ok){ const n = document.getElementById("notice"); if(n) n.hidden = true; }
+  else showNotice("Связь с сервером потеряна. Отметки сохраняются на этом устройстве и уйдут, как только связь вернётся.");
+}
+async function removeDoc(path){
+  lsSaveCustom();
+  try{ localStorage.removeItem(lsKey(path)); }catch(e){}
+  if(!SB){ blink(); return; }
+  try { await sbDrop(path); blink(); } catch(err){ markOnline(false); }
+}
+function lsSaveCustom(){ lsSet("customAll", state.custom); }
+function newId(){ return "c" + Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+function showNotice(msg){
+  const n = document.getElementById("notice");
+  n.className = "notice"; n.textContent = msg; n.hidden = false;
+}
+
+/* ---------- progress ---------- */
+let segCells = null;
+function buildSegbar(){
+  const bar = document.getElementById("segbar");
+  segCells = [];
+  for(let i=1;i<=20;i++){
+    const c = el("i"); if(i%5===0 && i<20) c.className = "gap";
+    bar.appendChild(c); segCells.push(c);
+  }
+}
+const dayOf = {}; REELS.forEach(r => dayOf[r.n] = r.day);
+function dayStats(d){
+  const list = REELS.filter(r => r.day === d);
+  return {total:list.length, done:list.filter(r => state.reels[r.n].status === "shot").length};
+}
+function refreshMeter(){
+  const done = REELS.filter(r => state.reels[r.n].status === "shot").length;
+  const retake = REELS.filter(r => state.reels[r.n].status === "retake").length;
+  const moved = REELS.filter(r => state.reels[r.n].status === "moved").length;
+  if(segCells){
+    const sorted = [...REELS].sort((a,b) => a.n - b.n);
+    sorted.forEach((r,i) => {
+      const c = segCells[i], base = (i+1)%5===0 && i<19 ? "gap " : "";
+      const st = state.reels[r.n].status;
+      c.className = base + (st === "shot" ? "on" : st === "retake" ? "re" : st === "moved" ? "mv" : "");
+    });
+  }
+  document.getElementById("barnum").textContent = done + " / 20";
+  const x = document.getElementById("barx");
+  if(done === 20) x.textContent = "все двадцать сняты";
+  else if(retake) x.textContent = "осталось " + (20-done) + ", переснять " + retake;
+  else if(moved) x.textContent = "осталось " + (20-done) + ", перенесено " + moved;
+  else if(done === 0) x.textContent = "смена не начата";
+  else x.textContent = "осталось " + (20-done);
+  [1,2].forEach(d => {
+    const st = dayStats(d);
+    const btn = document.getElementById("tab-d"+d);
+    if(btn) btn.textContent = "День " + d + " · " + st.done + "/" + st.total;
+    const h = document.getElementById("daystat-"+d);
+    if(h) h.textContent = st.done === st.total
+      ? "смена закрыта, все " + st.total + " сняты"
+      : "снято " + st.done + " из " + st.total + ", осталось " + (st.total - st.done);
+  });
+}
+
+/* ---------- segmented control ---------- */
+function seg(opts, get, set, cls){
+  const box = el("div","seg"+(cls?" "+cls:""));
+  opts.forEach(o => {
+    const b = el("button", null, o.label);
+    b.type = "button"; b.dataset.val = o.val;
+    b.addEventListener("click", () => { set(get() === o.val ? "" : o.val); });
+    box.appendChild(b);
+  });
+  box.sync = () => { const v = get(); [...box.children].forEach(b => b.setAttribute("aria-pressed", String(b.dataset.val === v))); };
+  box.sync();
+  return box;
+}
+function field(label, node){
+  const f = el("div","fld"); f.appendChild(el("label",null,label)); f.appendChild(node); return f;
+}
+function textInput(ph, get, set, cls){
+  const i = document.createElement("input");
+  i.type = "text"; i.placeholder = ph; i.value = get() || ""; if(cls) i.className = cls;
+  i.addEventListener("input", () => set(i.value));
+  i.sync = () => { if(document.activeElement !== i) i.value = get() || ""; };
+  return i;
+}
+
+/* ---------- shot row ---------- */
+const reelSync = {};
+const NEEDS = {}; REELS.forEach(r => NEEDS[r.n] = r.text.some(t => /\[[А-ЯЁ]/.test(t)));
+
+function reelRow(n){
+  const r = byN[n], s = state.reels[n];
+  const d = document.createElement("details");
+  d.className = "item"; d.id = "item-"+n; d.dataset.st = s.status || "todo"; d.dataset.n = String(n);
+
+  const sm = document.createElement("summary");
+  sm.appendChild(el("span","dot"));
+  sm.appendChild(el("span","tm", r.time));
+  sm.appendChild(el("span","num", String(n)));
+  sm.appendChild(el("h3", null, r.title));
+  if(NEEDS[n]) sm.appendChild(el("span","flag","нужны цифры"));
+  sm.appendChild(el("span","chip f-"+r.fn, FN[r.fn]));
+  sm.appendChild(el("span","chev","\u25b8"));
+  d.appendChild(sm);
+
+  const body = el("div","item-body");
+  const pr = el("div","props");
+  pr.appendChild(el("b", null, "Реквизит и предупреждения"));
+  pr.appendChild(document.createTextNode(r.props));
+  body.appendChild(pr);
+
+  const ctr = el("div","ctrls");
+  const save = () => { persist("reels/"+pad(n), {...s}); syncReel(n); refreshMeter(); applyFilter(r.day); };
+
+  const ST = {shot:"снят", retake:"на пересъёмку", moved:"перенесён", "":"отметка снята"};
+  const stSeg = seg(
+    [{val:"shot",label:"Снято"},{val:"retake",label:"Переснять"},{val:"moved",label:"Перенос"}],
+    () => s.status, v => { s.status = v; save(); sbLog("\u2116" + n + " «" + r.title + "» — " + ST[v]); }, "g-ok");
+  ctr.appendChild(field("Статус", stSeg));
+
+  const RT = {good:"хорошо", ok:"норм", bad:"слабо", "":"оценка убрана"};
+  const rtSeg = seg(
+    [{val:"good",label:"Хорошо"},{val:"ok",label:"Норм"},{val:"bad",label:"Слабо"}],
+    () => s.rating, v => { s.rating = v; save(); sbLog("\u2116" + n + " «" + r.title + "» — оценка: " + RT[v]); });
+  ctr.appendChild(field("Как вышло", rtSeg));
+
+  const fi = textInput("C0043, C0044", () => s.files, v => { s.files = v; save(); });
+  fi.addEventListener("blur", flushAll);
+  ctr.appendChild(field("Файлы для монтажёра", fi));
+
+  const ni = textInput("что пошло не так", () => s.note, v => { s.note = v; save(); }, "note");
+  ni.addEventListener("blur", flushAll);
+  ctr.appendChild(field("Заметка", ni));
+  body.appendChild(ctr);
+
+  const j = el("button","jump","Открыть сценарий \u2116" + n);
+  j.type = "button";
+  j.addEventListener("click", () => {
+    showTab("scripts");
+    const t = document.getElementById("scr-"+n);
+    t.open = true; t.scrollIntoView({behavior:"smooth", block:"start"});
+  });
+  body.appendChild(j);
+  d.appendChild(body);
+
+  sm.addEventListener("click", () => {
+    if(d.open) return;
+    const pane = d.closest(".panel");
+    if(pane) pane.querySelectorAll(".item[open]").forEach(o => { if(o !== d) o.open = false; });
+  });
+
+  reelSync[n] = () => {
+    d.dataset.st = s.status || "todo";
+    stSeg.sync(); rtSeg.sync(); fi.sync(); ni.sync();
+    const b = document.getElementById("badge-"+n);
+    if(b){
+      b.className = "badge" + (s.status === "shot" ? " on" : s.status === "retake" ? " re" : "");
+      b.textContent = s.status === "shot" ? "снято" : s.status === "retake" ? "переснять" : s.status === "moved" ? "перенос" : "не снято";
+    }
+  };
+  return d;
+}
+function syncReel(n){ if(reelSync[n]) reelSync[n](); }
+
+/* ---------- day panel ---------- */
+const filterOf = {1:"all", 2:"all"};
+function applyFilter(d){
+  const pane = panels["d"+d];
+  if(!pane) return;
+  const f = filterOf[d];
+  pane.querySelectorAll(".item").forEach(it => {
+    const st = state.reels[+it.dataset.n].status || "todo";
+    it.hidden = !(f === "all" || (f === "todo" && st === "todo") || f === st);
+  });
+  pane.querySelectorAll(".filters button[data-f]").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.f === f)));
+}
+function copyFiles(d, btn){
+  const lines = REELS.filter(r => r.day === d).sort((a,b) => a.n - b.n).map(r => {
+    const s = state.reels[r.n];
+    return "REEL_" + String(r.n).padStart(2,"0") + "  " + r.title + "  —  " + (s.files || "файлы не вписаны") + (s.note ? "  (" + s.note + ")" : "");
+  });
+  const txt = "Съёмка, день " + d + "\n" + lines.join("\n");
+  const flash = word => {
+    if(!btn) return;
+    const was = btn.dataset.label || btn.textContent;
+    btn.dataset.label = was;
+    btn.textContent = word;
+    clearTimeout(btn._t);
+    btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 1600);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(() => flash("Скопировано"), () => flash("Не вышло"));
+  } else flash("Не вышло");
+}
+function dayPanel(d){
+  const p = el("div","panel");
+
+  const f = el("div","filters");
+  [["all","Все"],["todo","Не снято"],["shot","Снято"],["retake","Переснять"],["moved","Перенос"]].forEach(([k,label]) => {
+    const b = el("button", null, label); b.type = "button"; b.dataset.f = k;
+    b.addEventListener("click", () => { filterOf[d] = k; applyFilter(d); });
+    f.appendChild(b);
+  });
+  f.appendChild(el("span","spacer"));
+  const cp = el("button","act","Скопировать файлы"); cp.type = "button";
+  cp.addEventListener("click", () => copyFiles(d, cp));
+  f.appendChild(cp);
+  p.appendChild(f);
+
+  const st = el("p","lead");
+  const strong = el("b","",""); strong.id = "daystat-"+d;
+  st.appendChild(strong);
+  st.appendChild(document.createTextNode(". Порядок сверху вниз, время приблизительное. Тапните строку, чтобы отметить и вписать файлы."));
+  p.appendChild(st);
+
+  DAYS[d].rows.forEach(row => {
+    if(row.k === "block"){
+      const h = el("div","block-head");
+      h.appendChild(el("span","loc", LOCS[row.loc].name));
+      h.appendChild(el("span","meta", row.time + " · " + LOCS[row.loc].hint));
+      p.appendChild(h);
+      p.appendChild(el("p","lead", row.note));
+    } else if(row.k === "break"){
+      const b = el("div","break");
+      b.appendChild(el("time", null, row.time));
+      b.appendChild(el("span", null, row.text));
+      p.appendChild(b);
+    } else {
+      p.appendChild(reelRow(row.n));
+    }
+  });
+  return p;
+}
+
+/* ---------- scripts panel ---------- */
+function scriptsPanel(){
+  const p = el("div","panel");
+  p.appendChild(el("p","lead","Читать с экрана. Квадратные скобки — места под реальные цифры, заполнить до съёмки."));
+  const sorted = [...REELS].sort((a,b) => a.n - b.n);
+  sorted.forEach(r => {
+    const d = document.createElement("details"); d.className = "scr"; d.id = "scr-"+r.n;
+    const sm = document.createElement("summary");
+    sm.appendChild(el("span","num", String(r.n)));
+    sm.appendChild(el("h3", null, r.title));
+    sm.appendChild(el("span","chip f-"+r.fn, FN[r.fn]));
+    const bd = el("span","badge","не снято"); bd.id = "badge-"+r.n;
+    sm.appendChild(bd);
+    d.appendChild(sm);
+    const body = el("div","scr-body");
+    const f = el("div","facts");
+    [["Задача", FN[r.fn]],["Ступень Ханта", r.hunt],["Локация", LOCS[r.loc].name],["День", "день "+r.day+", "+r.time],["Приём", r.dev]]
+      .forEach(([k,v]) => { const s = el("span"); s.appendChild(el("b",null,k+": ")); s.appendChild(document.createTextNode(v)); f.appendChild(s); });
+    body.appendChild(f);
+    const tx = el("div","text");
+    r.text.forEach(par => tx.appendChild(el("p", par.startsWith("[") ? "stage" : null, par)));
+    body.appendChild(tx);
+    d.appendChild(body);
+    p.appendChild(d);
+  });
+  return p;
+}
+
+/* ---------- b-roll panel ---------- */
+const brollSync = {};
+function brollPanel(){
+  const p = el("div","panel");
+  p.appendChild(el("p","lead","Кадры без речи. Монтажёр закрывает ими склейки, без них двадцать говорящих голов подряд не смотрятся. Снимать сразу после блока, пока свет и локация те же."));
+  [1,2].forEach(d => {
+    let lastPlace = null;
+    BROLL.filter(b => b.day === d).forEach(b => {
+      if(b.place !== lastPlace){
+        const h = el("div","block-head");
+        h.appendChild(el("span","loc", "День " + d + " · " + b.place));
+        p.appendChild(h);
+        lastPlace = b.place;
+      }
+      const s = state.broll[b.id];
+      const row = el("div","bro");
+      const txt = el("div","txt");
+      txt.appendChild(el("b", null, b.t));
+      txt.appendChild(el("small", null, "для: " + b.u));
+      row.appendChild(txt);
+      const save = () => { persist("broll/"+b.id, {...s}); if(brollSync[b.id]) brollSync[b.id](); };
+      const sg = seg([{val:"shot",label:"Снято"}], () => s.status, v => { s.status = v; save(); sbLog("доп. кадр " + (v ? "снят" : "отменён") + ": " + b.t); }, "g-ok");
+      row.appendChild(sg);
+      const fi = textInput("файл", () => s.files, v => { s.files = v; save(); });
+      const w = el("div","fl"); w.appendChild(fi); row.appendChild(w);
+      p.appendChild(row);
+      brollSync[b.id] = () => { sg.sync(); fi.sync(); };
+    });
+  });
+  return p;
+}
+
+/* ---------- checklists ---------- */
+const checkSync = {};
+function checksPanel(){
+  const p = el("div","panel");
+  p.appendChild(el("p","lead","Три списка. Галочки ставит каждый со своего телефона, все видят одно и то же. Внизу каждого списка можно дописывать свои пункты и оставлять заметки — они сохраняются так же, как всё остальное."));
+  const grid = el("div","lists");
+  CHECKS.forEach(list => {
+    const box = el("div","list");
+    const head = el("div","list-head");
+    const ring = el("div","ring"); ring.id = "ring-"+list.id;
+    const ri = el("i", null, "0%"); ri.id = "ringnum-"+list.id;
+    ring.appendChild(ri); head.appendChild(ring);
+    const ht = el("div","t");
+    ht.appendChild(el("h3", null, list.who));
+    ht.appendChild(el("p","who", list.sub));
+    const cnt = el("span","cnt",""); cnt.id = "cnt-"+list.id;
+    ht.appendChild(cnt);
+    head.appendChild(ht);
+    box.appendChild(head);
+
+    list.groups.forEach((g, gi) => {
+      box.appendChild(el("div","grp", g.g));
+      g.items.forEach((item, ii) => {
+        const id = list.id + "-" + gi + "-" + ii;
+        state.checks[id] = state.checks[id] || {done:false};
+        const lab = el("label","chk");
+        const cb = document.createElement("input");
+        cb.type = "checkbox"; cb.id = "chk-"+id; cb.checked = !!state.checks[id].done;
+        cb.addEventListener("change", () => {
+          state.checks[id].done = cb.checked;
+          persist("checks/"+id, {done: cb.checked});
+          countList(list);
+          sbLog((cb.checked ? "готово: " : "снял галочку: ") + item);
+        });
+        lab.appendChild(cb); lab.appendChild(el("span", null, item));
+        box.appendChild(lab);
+        checkSync[id] = () => { const c = document.getElementById("chk-"+id); if(c) c.checked = !!state.checks[id].done; countList(list); };
+      });
+    });
+
+    box.appendChild(el("div","grp","Свои пункты"));
+    const holder = el("div"); holder.id = "own-"+list.id;
+    box.appendChild(holder);
+
+    const addrow = el("div","addrow");
+    const inp = document.createElement("input");
+    inp.type = "text"; inp.id = "add-"+list.id; inp.placeholder = "дописать пункт и нажать Enter";
+    const btn = el("button", null, "Добавить"); btn.type = "button";
+    const addItem = () => {
+      const t = inp.value.trim();
+      if(!t) return;
+      const id = newId();
+      state.custom[id] = {list:list.id, text:t, done:false, ts:Date.now()};
+      persist("custom/"+id, state.custom[id]);
+      lsSaveCustom();
+      sbLog("добавил пункт (" + list.who + "): " + t);
+      inp.value = "";
+      renderCustom(list.id); countList(list);
+      inp.focus();
+    };
+    btn.addEventListener("click", addItem);
+    inp.addEventListener("keydown", e => { if(e.key === "Enter"){ e.preventDefault(); addItem(); } });
+    addrow.appendChild(inp); addrow.appendChild(btn);
+    box.appendChild(addrow);
+
+    box.appendChild(el("div","grp","Заметки"));
+    const ta = document.createElement("textarea");
+    ta.className = "notes"; ta.id = "notes-"+list.id;
+    ta.placeholder = "что выяснилось на площадке, что переделать, что спросить";
+    ta.value = (state.notes[list.id] && state.notes[list.id].text) || "";
+    ta.addEventListener("input", () => {
+      state.notes[list.id] = {text: ta.value};
+      persist("notes/"+list.id, {text: ta.value});
+    });
+    ta.addEventListener("blur", flushAll);
+    box.appendChild(ta);
+
+    grid.appendChild(box);
+  });
+  p.appendChild(grid);
+  return p;
+}
+
+function renderCustom(listId){
+  const holder = document.getElementById("own-"+listId);
+  if(!holder) return;
+  holder.textContent = "";
+  const rows = Object.keys(state.custom)
+    .filter(id => state.custom[id] && state.custom[id].list === listId)
+    .sort((a,b) => (state.custom[a].ts||0) - (state.custom[b].ts||0));
+  if(!rows.length){
+    const e = el("p","who","Пока пусто. Свои пункты добавляются ниже.");
+    e.style.margin = "2px 0 0"; holder.appendChild(e);
+    return;
+  }
+  rows.forEach(id => {
+    const it = state.custom[id];
+    const row = el("div","crow");
+    const lab = el("label","chk");
+    const cb = document.createElement("input");
+    cb.type = "checkbox"; cb.checked = !!it.done;
+    cb.addEventListener("change", () => {
+      it.done = cb.checked;
+      persist("custom/"+id, {list:it.list, text:it.text, done:it.done, ts:it.ts});
+      lsSaveCustom();
+      sbLog((it.done ? "готово: " : "снял галочку: ") + it.text);
+      CHECKS.forEach(countList);
+    });
+    lab.appendChild(cb); lab.appendChild(el("span", null, it.text));
+    row.appendChild(lab);
+    const del = el("button","del","\u00d7");
+    del.type = "button"; del.title = "Удалить пункт";
+    del.setAttribute("aria-label", "Удалить пункт");
+    del.addEventListener("click", () => {
+      if(!confirm("Удалить пункт «" + it.text + "»?")) return;
+      delete state.custom[id];
+      removeDoc("custom/"+id);
+      sbLog("удалил пункт: " + it.text);
+      renderCustom(listId); CHECKS.forEach(countList);
+    });
+    row.appendChild(del);
+    holder.appendChild(row);
+  });
+}
+
+function countList(list){
+  let total = 0, done = 0;
+  list.groups.forEach((g, gi) => g.items.forEach((it, ii) => {
+    total++; const id = list.id+"-"+gi+"-"+ii;
+    if(state.checks[id] && state.checks[id].done) done++;
+  }));
+  Object.keys(state.custom).forEach(id => {
+    if(state.custom[id] && state.custom[id].list === list.id){ total++; if(state.custom[id].done) done++; }
+  });
+  const c = document.getElementById("cnt-"+list.id);
+  if(c) c.textContent = done + " из " + total;
+  const pc = total ? Math.round(done/total*100) : 0;
+  const ring = document.getElementById("ring-"+list.id);
+  if(ring) ring.style.setProperty("--p", pc);
+  const rn = document.getElementById("ringnum-"+list.id);
+  if(rn) rn.textContent = pc + "%";
+}
+
+/* ---------- tabs ---------- */
+const TABS = [
+  {id:"d1",      label:"День 1",       build:() => dayPanel(1)},
+  {id:"d2",      label:"День 2",       build:() => dayPanel(2)},
+  {id:"scripts", label:"Сценарии",     build:scriptsPanel},
+  {id:"broll",   label:"Доп. съёмки",  build:brollPanel},
+  {id:"checks",  label:"Чек-листы",    build:checksPanel},
+  {id:"feed",    label:"Журнал",       build:feedPanel}
+];
+const panels = {};
+function showTab(id){
+  if(id === "feed" && typeof pullFeed === "function") pullFeed();
+  TABS.forEach(t => {
+    const btn = document.getElementById("tab-"+t.id);
+    btn.setAttribute("aria-selected", String(t.id === id));
+    panels[t.id].hidden = t.id !== id;
+  });
+  try { localStorage.setItem("smena:tab", id); } catch(e){}
+}
+function buildUI(){
+  const tabbar = document.getElementById("tabs"), host = document.getElementById("panels");
+  TABS.forEach(t => {
+    const b = el("button", null, t.label);
+    b.id = "tab-"+t.id; b.type = "button"; b.setAttribute("role","tab");
+    b.addEventListener("click", () => showTab(t.id));
+    tabbar.appendChild(b);
+    const pane = t.build();
+    pane.id = "panel-"+t.id; pane.setAttribute("role","tabpanel");
+    panels[t.id] = pane; host.appendChild(pane);
+  });
+  buildSegbar();
+  CHECKS.forEach(l => { renderCustom(l.id); countList(l); });
+  applyFilter(1); applyFilter(2);
+  let start = "d1";
+  try { const s = localStorage.getItem("smena:tab"); if(s && panels[s]) start = s; } catch(e){}
+  showTab(start);
+  refreshMeter();
+}
+buildUI();
+
+/* ================= журнал ================= */
+function feedPanel(){
+  const p = el("div","panel");
+  p.appendChild(el("p","lead","Кто что отметил. Обновляется сам, последние шестьдесят действий."));
+  const f = el("div","feed"); f.id = "feedlist";
+  f.appendChild(el("p","lead","Пока ничего не отмечено."));
+  p.appendChild(f);
+  return p;
+}
+function fmtTime(iso){
+  const d = new Date(iso);
+  if(isNaN(d)) return "";
+  const hh = String(d.getHours()).padStart(2,"0"), mm = String(d.getMinutes()).padStart(2,"0");
+  const today = new Date();
+  const same = d.getDate()===today.getDate() && d.getMonth()===today.getMonth() && d.getFullYear()===today.getFullYear();
+  return same ? hh+":"+mm : String(d.getDate()).padStart(2,"0")+"."+String(d.getMonth()+1).padStart(2,"0")+" "+hh+":"+mm;
+}
+function renderFeed(rows){
+  const f = document.getElementById("feedlist");
+  if(!f) return;
+  f.textContent = "";
+  if(!rows || !rows.length){ f.appendChild(el("p","lead","Пока ничего не отмечено.")); return; }
+  rows.forEach(r => {
+    const line = el("div","fe");
+    line.appendChild(el("time", null, fmtTime(r.at)));
+    line.appendChild(el("span","who", r.who || "кто-то"));
+    line.appendChild(el("span","what", r.what || ""));
+    f.appendChild(line);
+  });
+}
+
+/* ================= синхронизация ================= */
+function applyDoc(id, data){
+  if(!data) return;
+  if(id.indexOf("reels/") === 0){
+    const n = parseInt(id.slice(7), 10);
+    if(state.reels[n]){
+      Object.assign(state.reels[n], {status:data.status||"", rating:data.rating||"", files:data.files||"", note:data.note||""});
+      syncReel(n);
+    }
+  } else if(id.indexOf("broll/") === 0){
+    const k = id.slice(6);
+    if(state.broll[k]){ Object.assign(state.broll[k], {status:data.status||"", files:data.files||""}); if(brollSync[k]) brollSync[k](); }
+  } else if(id.indexOf("checks/") === 0){
+    const k = id.slice(7);
+    if(state.checks[k]){ state.checks[k].done = !!data.done; if(checkSync[k]) checkSync[k](); }
+  } else if(id.indexOf("notes/") === 0){
+    const k = id.slice(6);
+    state.notes[k] = {text: data.text || ""};
+    const ta = document.getElementById("notes-"+k);
+    if(ta && document.activeElement !== ta) ta.value = data.text || "";
+  }
+}
+async function pull(){
+  if(!SB) return;
+  try{
+    const rows = await sbAll();
+    markOnline(true);
+    const nextCustom = {};
+    rows.forEach(r => {
+      if(!r.id) return;
+      if(r.id.indexOf("custom/") === 0){
+        if(r.data && r.data.list) nextCustom[r.id.slice(7)] = {list:r.data.list, text:r.data.text||"", done:!!r.data.done, ts:r.data.ts||0};
+      } else if(!pending[r.id]) applyDoc(r.id, r.data);
+    });
+    state.custom = nextCustom;
+    CHECKS.forEach(l => { renderCustom(l.id); countList(l); });
+    refreshMeter(); applyFilter(1); applyFilter(2);
+  }catch(e){
+    const m = String(e && e.message || "");
+    if(/PGRST205|42P01|does not exist|Could not find the table|^404/.test(m)){
+      online = false;
+      showNotice("Хранилище подключено, но таблицы не созданы. В Supabase откройте SQL Editor, вставьте файл docs/supabase.sql и нажмите Run.");
+    } else markOnline(false);
+  }
+}
+function loadLocal(){
+  REELS.forEach(r => { const v = lsGet("reels/"+pad(r.n)); if(v){ Object.assign(state.reels[r.n], v); syncReel(r.n); } });
+  BROLL.forEach(b => { const v = lsGet("broll/"+b.id); if(v){ Object.assign(state.broll[b.id], v); if(brollSync[b.id]) brollSync[b.id](); } });
+  Object.keys(state.checks).forEach(id => { const v = lsGet("checks/"+id); if(v){ state.checks[id] = v; if(checkSync[id]) checkSync[id](); } });
+  const cu = lsGet("customAll"); if(cu) state.custom = cu;
+  CHECKS.forEach(l => {
+    const nv = lsGet("notes/"+l.id);
+    if(nv){ state.notes[l.id] = nv; const ta = document.getElementById("notes-"+l.id); if(ta) ta.value = nv.text || ""; }
+    renderCustom(l.id); countList(l);
+  });
+  refreshMeter(); applyFilter(1); applyFilter(2);
+}
+
+/* ================= вход ================= */
+function showWhoami(){
+  const w = document.getElementById("whoami");
+  if(!w) return;
+  w.textContent = "";
+  w.appendChild(document.createTextNode(myName()));
+  const b = el("button", null, "сменить"); b.type = "button";
+  b.addEventListener("click", () => { try{ localStorage.removeItem("smena:name"); }catch(e){} openGate(); });
+  w.appendChild(b);
+}
+function openGate(){
+  const g = document.getElementById("gate");
+  const nameI = document.getElementById("g-name");
+  const codeI = document.getElementById("g-code");
+  const codeW = document.getElementById("g-code-wrap");
+  const err = document.getElementById("g-err");
+  let savedCode = ""; try{ savedCode = localStorage.getItem("smena:code") || ""; }catch(e){}
+  const needCode = !!CFG.code && savedCode !== CFG.code;
+  codeW.hidden = !needCode;
+  try{ nameI.value = localStorage.getItem("smena:name") || ""; }catch(e){}
+  g.hidden = false;
+  setTimeout(() => nameI.focus(), 60);
+  const go = () => {
+    const nm = nameI.value.trim();
+    if(nm.length < 2){ err.textContent = "Впишите имя, чтобы было видно, кто отмечал."; nameI.focus(); return; }
+    if(needCode && codeI.value.trim() !== CFG.code){ err.textContent = "Код не подходит. Спросите у Жасулана."; codeI.focus(); return; }
+    try{ localStorage.setItem("smena:name", nm); if(CFG.code) localStorage.setItem("smena:code", CFG.code); }catch(e){}
+    err.textContent = "";
+    g.hidden = true;
+    showWhoami();
+  };
+  document.getElementById("g-go").onclick = go;
+  [nameI, codeI].forEach(i => { i.onkeydown = e => { if(e.key === "Enter"){ e.preventDefault(); go(); } }; });
+}
+
+/* ================= старт ================= */
+(function start(){
+  let hasName = false;
+  try{ hasName = !!localStorage.getItem("smena:name"); }catch(e){}
+  let codeOk = !CFG.code;
+  try{ if(CFG.code && localStorage.getItem("smena:code") === CFG.code) codeOk = true; }catch(e){}
+  if(hasName && codeOk) showWhoami(); else openGate();
+
+  if(!SB){
+    showNotice("Сайт ещё не подключён к общему хранилищу. Отметки сохраняются только на этом устройстве. Впишите адрес и ключ в файл config.js.");
+    loadLocal();
+    return;
+  }
+  loadLocal();
+  pull(); pullFeed();
+  setInterval(() => { if(document.visibilityState !== "hidden") pull(); }, 7000);
+  setInterval(() => { if(document.visibilityState !== "hidden" && panels.feed && !panels.feed.hidden) pullFeed(); }, 7000);
+  window.addEventListener("focus", () => { pull(); pullFeed(); });
+})();
+async function pullFeed(){
+  if(!SB) return;
+  try{ renderFeed(await sbFeed()); }catch(e){}
+}
+</script>
+
+</body>
+</html>
